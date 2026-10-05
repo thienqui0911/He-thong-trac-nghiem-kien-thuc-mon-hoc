@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI phân tích kiến thức</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="ai-review-page">
+
+    <div class="ai-review-card">
+
+        <div class="ai-review-title">
+
+            <span class="ai-icon">
+                🤖
+            </span>
+
+            <div>
+
+                <h1>
+                    AI phân tích kiến thức
+                </h1>
+
+                <p>
+                    Phân tích kết quả qua nhiều bài kiểm tra
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="ai-review-content">
+
+            {{ analysis }}
+
+        </div>
+
+
+        <div class="ai-review-footer">
+
+            <a href="/knowledge"
+               class="back-button">
+
+                ← Quay lại theo dõi kiến thức
+
+            </a>
+
+            <a href="/"
+               class="back-button">
+
+                📝 Tạo bài kiểm tra mới
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

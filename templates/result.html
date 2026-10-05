@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Kết quả - AI Quiz</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+<div class="result-container">
+
+
+    <!-- TIÊU ĐỀ -->
+
+    <div class="result-header">
+
+        <h1>🎉 KẾT QUẢ BÀI THI</h1>
+
+        <p>
+            {{ subject }}
+        </p>
+
+    </div>
+
+
+    <!-- ĐIỂM -->
+
+    <div class="score-card">
+
+        <div class="score">
+
+            {{ score }}
+
+            <span>/ 10</span>
+
+        </div>
+
+        <p>
+            Điểm của bạn
+
+        </p>
+
+    </div>
+
+
+    <!-- THỐNG KÊ -->
+
+    <div class="statistics">
+
+        <div class="stat">
+
+            <strong>
+                {{ correct }}
+            </strong>
+
+            <span>
+                Câu đúng
+            </span>
+
+        </div>
+
+
+        <div class="stat">
+
+            <strong>
+                {{ total - correct }}
+            </strong>
+
+            <span>
+                Câu sai
+            </span>
+
+        </div>
+
+
+        <div class="stat">
+
+            <strong>
+                {{ total }}
+            </strong>
+
+            <span>
+                Tổng số câu
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- CHI TIẾT -->
+
+    <div class="details">
+
+        <h2>
+            Chi tiết bài làm
+        </h2>
+
+
+        {% for item in details %}
+
+        <div class="result-question
+                    {% if item.is_correct %}
+                        correct
+                    {% else %}
+                        wrong
+                    {% endif %}">
+
+            <h3>
+                Câu {{ loop.index }}
+            </h3>
+
+
+            <p class="question-text">
+                {{ item.question }}
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Đáp án của bạn:
+                </strong>
+
+                {{ item.user_answer }}
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Đáp án đúng:
+                </strong>
+
+                {{ item.correct_answer }}
+
+            </p>
+
+
+            {% if item.is_correct %}
+
+                <div class="status correct-text">
+                    ✓ Chính xác
+                </div>
+
+            {% else %}
+
+                <div class="status wrong-text">
+                    ✗ Chưa chính xác
+                </div>
+
+            {% endif %}
+
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    <!-- NÚT -->
+
+<div class="result-actions">
+
+    <a
+        href="/ai-review"
+        class="ai-review-btn"
+    >
+        Nhận xét
+    </a>
+     <a href="/knowledge" class="ai-review-btn">
+        Nhận xét sau nhiều bài kiểm tra
+    </a>
+    <a
+        href="/"
+        class="back-button"
+    >
+        Tạo bài kiểm tra mới
+    </a>
+
+</div>
+
+   
+
+
+</body>
+
+</html>

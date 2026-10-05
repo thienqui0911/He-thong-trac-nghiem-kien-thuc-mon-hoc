@@ -1,0 +1,317 @@
+vv<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bài kiểm tra - AI Quiz</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="quiz-container">
+
+    <div class="quiz-header">
+
+        <div>
+            <h1>AI QUIZ</h1>
+
+            <p>
+                {{ subject }} 
+            </p>
+        </div>
+
+        <div class="difficulty">
+            Độ khó:
+            <strong>{{ difficulty }}</strong>
+        </div>
+
+    </div>
+
+
+    <form action="/submit-quiz" method="POST">
+
+        {% for q in questions %}
+
+            {% set question_index = loop.index0 %}
+
+            <div class="question-card">
+
+                <div class="question-number">
+                    CÂU {{ loop.index }}
+                </div>
+
+                <h2>
+                    {{ q.question }}
+                </h2>
+
+                <div class="answers">
+
+                    {% for option in q.options %}
+
+                        <label class="answer">
+
+                            <input
+                                type="radio"
+                                name="question{{ question_index }}"
+                                value="{{ loop.index0 }}"
+                            >
+
+                            <span class="letter">
+                                {{ "ABCD"[loop.index0] }}.
+                            </span>
+
+                            <span class="answer-text">
+                                {{ option }}
+                            </span>
+
+                        </label>
+
+                    {% endfor %}
+
+                </div>
+
+                <div class="question-error">
+                     Vui lòng chọn đáp án cho câu hỏi này.
+                </div>
+            </div>
+
+        {% endfor %}
+
+
+        <button class="submit-btn" type="submit">
+            Nộp bài
+        </button>
+
+    </form>
+
+</div>
+    <script>
+
+const quizForm = document.querySelector("form");
+
+
+// =========================================
+// KIỂM TRA KHI BẤM NỘP BÀI
+// =========================================
+
+quizForm.addEventListener("submit", function(event) {
+
+    const questionCards =
+        document.querySelectorAll(".question-card");
+
+    let firstUnanswered = null;
+    let allAnswered = true;
+
+
+    // Kiểm tra từng câu
+    questionCards.forEach(function(card) {
+
+        const selectedAnswer =
+            card.querySelector(
+                'input[type="radio"]:checked'
+            );
+
+        const error =
+            card.querySelector(".question-error");
+
+
+        // Nếu chưa chọn đáp án
+        if (!selectedAnswer) {
+
+            allAnswered = false;
+
+            // Hiện thông báo đỏ
+            error.style.display = "block";
+
+
+            // Lưu câu chưa làm đầu tiên
+            if (!firstUnanswered) {
+
+                firstUnanswered = card;
+
+            }
+
+        } else {
+
+            // Nếu đã làm thì ẩn thông báo
+            error.style.display = "none";
+
+        }
+
+    });
+
+
+    // =====================================
+    // CÒN CÂU CHƯA LÀM
+    // =====================================
+
+    if (!allAnswered) {
+
+        // Không cho submit
+        event.preventDefault();
+
+
+        // Tự động cuộn tới câu chưa làm đầu tiên
+        firstUnanswered.scrollIntoView({
+
+            behavior: "smooth",
+
+            block: "center"
+
+        });
+
+
+        // Thêm viền đỏ + hiệu ứng rung
+        firstUnanswered.classList.add(
+            "unanswered"
+        );
+
+
+        // Sau 1.5 giây bỏ hiệu ứng rung
+        setTimeout(function() {
+
+            firstUnanswered.classList.remove(
+                "unanswered"
+            );
+
+        }, 1500);
+
+
+        return;
+    }
+
+
+    // =====================================
+    // ĐÃ LÀM ĐỦ → XÁC NHẬN NỘP
+    // =====================================
+
+  // =====================================
+// HIỆN MODAL XÁC NHẬN
+// =====================================
+
+event.preventDefault();
+
+const confirmModal =
+    document.getElementById("confirmModal");
+
+confirmModal.classList.add("show");
+
+
+// =====================================
+// NÚT HỦY
+// =====================================
+
+document.getElementById("cancelSubmit")
+    .onclick = function() {
+
+        confirmModal.classList.remove("show");
+
+    };
+
+
+// =====================================
+// NÚT NỘP BÀI
+// =====================================
+
+document.getElementById("confirmSubmit")
+    .onclick = function() {
+
+        confirmModal.classList.remove("show");
+
+        quizForm.submit();
+
+    };
+
+});
+
+
+// =========================================
+// KHI CHỌN ĐÁP ÁN
+// → ẨN THÔNG BÁO LỖI
+// =========================================
+
+document
+    .querySelectorAll(
+        '.question-card input[type="radio"]'
+    )
+    .forEach(function(input) {
+
+        input.addEventListener(
+            "change",
+            function() {
+
+                const card =
+                    input.closest(".question-card");
+
+
+                const error =
+                    card.querySelector(
+                        ".question-error"
+                    );
+
+
+                // Ẩn thông báo
+                error.style.display = "none";
+
+
+                // Bỏ viền đỏ
+                card.classList.remove(
+                    "unanswered"
+                );
+
+            }
+        );
+
+    });
+
+</script>
+    <!-- MODAL XÁC NHẬN NỘP BÀI -->
+
+<div id="confirmModal" class="confirm-modal">
+
+    <div class="confirm-box">
+
+        <div class="confirm-icon">
+            ⚠️
+        </div>
+
+        <h2>
+            Xác nhận nộp bài
+        </h2>
+
+        <p>
+            Bạn đã hoàn thành tất cả câu hỏi.
+        </p>
+
+        <p>
+            Bạn có chắc chắn muốn nộp bài không?
+        </p>
+
+        <div class="confirm-buttons">
+
+            <button
+                type="button"
+                class="cancel-btn"
+                id="cancelSubmit">
+                Hủy
+            </button>
+
+            <button
+                type="button"
+                class="confirm-btn"
+                id="confirmSubmit">
+                Nộp bài
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>

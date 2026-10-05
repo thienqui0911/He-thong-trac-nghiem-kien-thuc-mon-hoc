@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Theo dõi kiến thức - AI Quiz</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="knowledge-page">
+
+        <div class="knowledge-container">
+
+            <!-- HEADER -->
+            <div class="knowledge-header">
+
+                <h1>📚 Theo dõi kiến thức</h1>
+
+                <p>
+                    Tổng hợp kết quả của anh qua nhiều bài kiểm tra
+                </p>
+
+            </div>
+
+
+            <!-- DANH SÁCH KIẾN THỨC -->
+            {% if knowledge_data %}
+
+            <div class="knowledge-list">
+
+                {% for item in knowledge_data %}
+
+                <div class="knowledge-card">
+
+                    <div class="knowledge-card-header">
+
+                        <h2>
+                            {{ item.knowledge }}
+                        </h2>
+
+                        <span>
+                            {{ item.percentage }}%
+                        </span>
+
+                    </div>
+
+
+                    <!-- THANH TIẾN ĐỘ -->
+                    <div class="knowledge-progress">
+
+                        <div class="knowledge-progress-bar"
+                             style="width: {{ item.percentage }}%;">
+                        </div>
+
+                    </div>
+
+
+                    <!-- THỐNG KÊ -->
+                    <div class="knowledge-stat">
+
+                        <span>
+                            {{ item.correct }}/{{ item.total }}
+                            câu đúng
+                        </span>
+
+
+                        {% if item.percentage >= 80 %}
+
+                        <strong class="knowledge-good">
+                            ✓ Nắm khá tốt
+                        </strong>
+
+
+                        {% elif item.percentage >= 50 %}
+
+                        <strong class="knowledge-medium">
+                            ⚠ Cần ôn thêm
+                        </strong>
+
+
+                        {% else %}
+
+                        <strong class="knowledge-weak">
+                            ✗ Cần ôn lại
+                        </strong>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            {% else %}
+
+            <!-- CHƯA CÓ DỮ LIỆU -->
+            <div class="knowledge-empty">
+
+                <h2>
+                    Chưa có dữ liệu
+                </h2>
+
+                <p>
+                    Hãy làm một bài kiểm tra để bắt đầu
+                    theo dõi kiến thức.
+                </p>
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- BUTTON -->
+            <div class="knowledge-footer">
+
+                <a href="/knowledge-ai"
+                   class="back-button">
+
+                   Nhận xét kiến thức
+
+
+                </a>
+
+
+                <a href="/"
+                   class="back-button">
+
+                    Tạo bài kiểm tra mới
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

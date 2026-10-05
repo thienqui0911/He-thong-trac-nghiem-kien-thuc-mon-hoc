@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI nhận xét - AI Quiz</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+    <div class="ai-review-page">
+
+        <div class="ai-review-card">
+
+
+            <!-- HEADER -->
+
+            <div class="ai-review-header">
+
+                
+
+                <div>
+
+                    <h1>
+                        Nhận Xét
+                    </h1>
+                    <p>Nhận xét kết quả làm bài của bạn :</p>
+              
+                </div>
+
+            </div>
+
+
+            <!-- THÔNG TIN -->
+
+            <div class="ai-review-info">
+
+                <div class="info-row">
+
+                    <span>
+                        
+                        Môn học :
+                    </span>
+
+                    <strong>
+                        {{ subject }}
+                    </strong>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <span>
+                        Điểm số :
+                    </span>
+
+                    <strong>
+                        {{ score }}/10
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- NHẬN XÉT -->
+
+            <div class="ai-review-content">
+
+                {{ analysis }}
+
+            </div>
+
+
+            <!-- NÚT -->
+
+            <div class="ai-review-footer">
+
+                <a href="/"
+                   class="back-button">
+                    Tạo bài kiểm tra mới
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

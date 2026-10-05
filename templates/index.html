@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Quiz</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>AI QUIZ</h1>
+
+        <p class="subtitle">
+            Hệ thống tạo và đánh giá bài kiểm tra bằng AI
+        </p>
+
+        <div class="card">
+
+            <h2>Tạo bài kiểm tra</h2>
+
+            <form action="/create-quiz" method="POST">
+
+                <label>Môn học</label>
+
+                <select name="subject">
+                    <option value="Lập trình Python">Lập trình Python</option>
+                    <option value="Cơ sở dữ liệu">Cơ sở dữ liệu</option>
+                </select>
+
+
+                
+
+                <label>Loại kiến thức</label>
+
+                <select name="knowledge_type">
+                    <option value="Tất cả">Tất cả</option>
+                    <option value="Khái niệm">Khái niệm</option>
+                    <option value="Định lý">Định lý</option>
+                    <option value="Tính chất">Tính chất</option>
+                    <option value="Bài tập">Bài tập</option>
+                </select>
+
+
+                <label>Số câu hỏi</label>
+
+                <input type="number"
+                       name="number_questions"
+                       value="10"
+                       min="1">
+
+
+                <label>Độ khó</label>
+
+                <select name="difficulty">
+                    <option value="Dễ">Dễ</option>
+                    <option value="Trung bình">Trung bình</option>
+                    <option value="Khó">Khó</option>
+                </select>
+
+
+                <button type="submit">
+                    Tạo bài kiểm tra
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

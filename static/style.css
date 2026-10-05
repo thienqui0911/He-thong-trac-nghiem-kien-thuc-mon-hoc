@@ -1,0 +1,996 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: Arial, sans-serif;
+	background: #f1f5f9;
+	color: #1e293b;
+}
+
+/* =========================================
+   TRANG LÀM BÀI
+========================================= */
+
+.quiz-container {
+	width: 850px;
+	max-width: 95%;
+	margin: 40px auto 60px;
+}
+
+/* =========================================
+   HEADER BÀI KIỂM TRA
+========================================= */
+
+.quiz-header {
+	background: white;
+	padding: 25px 30px;
+	border-radius: 16px;
+	margin-bottom: 25px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+	.quiz-header h1 {
+		font-size: 32px;
+		margin-bottom: 7px;
+	}
+
+	.quiz-header p {
+		color: #64748b;
+		font-size: 15px;
+	}
+
+.difficulty {
+	background: #eff6ff;
+	color: #2563eb;
+	padding: 10px 16px;
+	border-radius: 10px;
+	font-size: 14px;
+}
+
+/* =========================================
+   CÂU HỎI
+========================================= */
+
+.question-card {
+	background: white;
+	padding: 28px;
+	margin-bottom: 22px;
+	border-radius: 16px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+	transition: 0.2s;
+}
+
+.question-number {
+	display: inline-block;
+	background: #2563eb;
+	color: white;
+	padding: 7px 14px;
+	border-radius: 8px;
+	font-size: 13px;
+	font-weight: bold;
+	margin-bottom: 15px;
+}
+
+.question-card h2 {
+	font-size: 19px;
+	line-height: 1.6;
+	margin-bottom: 22px;
+}
+
+/* =========================================
+   ĐÁP ÁN
+========================================= */
+
+.answers {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.answer {
+	display: flex;
+	align-items: center;
+	padding: 15px 17px;
+	border: 2px solid #e2e8f0;
+	border-radius: 12px;
+	cursor: pointer;
+	transition: 0.2s;
+	background: #ffffff;
+}
+
+	.answer input {
+		display: none;
+	}
+
+/* Chữ A B C D */
+
+.letter {
+	width: 30px;
+	height: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 8px;
+	font-weight: bold;
+	color: #2563eb;
+	margin-right: 10px;
+	flex-shrink: 0;
+}
+
+.answer-text {
+	font-size: 16px;
+	line-height: 1.5;
+}
+
+/* Hover */
+
+.answer:hover {
+	border-color: #93c5fd;
+	background: #f8fbff;
+}
+
+/* Được chọn */
+
+.answer:has(input:checked) {
+	border-color: #2563eb;
+	background: #eff6ff;
+}
+
+	.answer:has(input:checked) .letter {
+		background: #2563eb;
+		color: white;
+	}
+
+/* =========================================
+   NÚT NỘP BÀI
+========================================= */
+
+.submit-btn {
+	width: 100%;
+	padding: 16px;
+	border: none;
+	border-radius: 12px;
+	background: #2563eb;
+	color: white;
+	font-size: 17px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: 0.2s;
+	margin-top: 5px;
+}
+
+	.submit-btn:hover {
+		background: #1d4ed8;
+		transform: translateY(-1px);
+	}
+
+/* =========================================
+   TRANG TẠO BÀI KIỂM TRA
+========================================= */
+
+body:has(.container > .card form[action="/create-quiz"]) {
+	background: linear-gradient( 135deg, #eff6ff, #f8fafc );
+}
+
+	body:has(.container > .card form[action="/create-quiz"]) .container {
+		width: 700px;
+		max-width: 95%;
+		margin: 60px auto;
+	}
+
+	body:has(.container > .card form[action="/create-quiz"]) h1 {
+		text-align: center;
+		font-size: 42px;
+		color: #1e3a8a;
+		margin-bottom: 8px;
+	}
+
+	body:has(.container > .card form[action="/create-quiz"]) .subtitle {
+		text-align: center;
+		color: #64748b;
+		margin-bottom: 30px;
+	}
+
+	body:has(.container > .card form[action="/create-quiz"]) .card {
+		background: white;
+		padding: 35px;
+		border-radius: 18px;
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+	}
+
+		body:has(.container > .card form[action="/create-quiz"]) .card h2 {
+			text-align: center;
+			color: #1e293b;
+			margin-bottom: 28px;
+		}
+
+	body:has(.container > .card form[action="/create-quiz"]) label {
+		display: block;
+		margin-top: 18px;
+		margin-bottom: 8px;
+		font-weight: bold;
+		color: #334155;
+	}
+
+	/* Input + Select */
+
+	body:has(.container > .card form[action="/create-quiz"]) input,
+	body:has(.container > .card form[action="/create-quiz"]) select {
+		width: 100%;
+		padding: 13px 14px;
+		border: 1px solid #cbd5e1;
+		border-radius: 10px;
+		font-size: 15px;
+		background: white;
+		color: #1e293b;
+		outline: none;
+		transition: 0.2s;
+		box-sizing: border-box;
+	}
+
+		/* Option trong Select */
+
+		body:has(.container > .card form[action="/create-quiz"]) select option {
+			color: #1e293b;
+			background: white;
+		}
+
+		/* Focus */
+
+		body:has(.container > .card form[action="/create-quiz"]) input:focus,
+		body:has(.container > .card form[action="/create-quiz"]) select:focus {
+			border-color: #2563eb;
+			box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+		}
+
+	/* Nút tạo */
+
+	body:has(.container > .card form[action="/create-quiz"]) button {
+		width: 100%;
+		margin-top: 30px;
+		padding: 15px;
+		border: none;
+		border-radius: 10px;
+		background: #2563eb;
+		color: white;
+		font-size: 17px;
+		font-weight: bold;
+		cursor: pointer;
+		transition: 0.2s;
+	}
+
+		body:has(.container > .card form[action="/create-quiz"]) button:hover {
+			background: #1d4ed8;
+			transform: translateY(-1px);
+		}
+
+/* =========================================
+   TRANG KẾT QUẢ
+========================================= */
+
+.result-container {
+	width: 850px;
+	max-width: 95%;
+	margin: 45px auto 70px;
+}
+
+/* Header */
+
+.result-header {
+	text-align: center;
+	margin-bottom: 25px;
+}
+
+	.result-header h1 {
+		font-size: 32px;
+		margin-bottom: 10px;
+	}
+
+	.result-header p {
+		color: #64748b;
+	}
+
+/* =========================================
+   ĐIỂM
+========================================= */
+
+.score-card {
+	background: white;
+	text-align: center;
+	padding: 30px;
+	border-radius: 18px;
+	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+	margin-bottom: 20px;
+}
+
+.score {
+	font-size: 55px;
+	font-weight: bold;
+	color: #2563eb;
+}
+
+	.score span {
+		font-size: 25px;
+		color: #94a3b8;
+	}
+
+.score-card p {
+	color: #64748b;
+}
+
+/* =========================================
+   THỐNG KÊ
+========================================= */
+
+.statistics {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 15px;
+	margin-bottom: 25px;
+}
+
+.stat {
+	background: white;
+	padding: 22px;
+	text-align: center;
+	border-radius: 14px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+	.stat strong {
+		display: block;
+		font-size: 28px;
+		margin-bottom: 5px;
+	}
+
+	.stat span {
+		color: #64748b;
+	}
+
+/* =========================================
+   CHI TIẾT BÀI LÀM
+========================================= */
+
+.details {
+	background: white;
+	padding: 25px;
+	border-radius: 18px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+	.details h2 {
+		margin-bottom: 20px;
+	}
+
+/* Câu hỏi kết quả */
+
+.result-question {
+	padding: 20px;
+	margin-bottom: 15px;
+	border-radius: 12px;
+	border: 2px solid #e2e8f0;
+}
+
+	.result-question.correct {
+		border-color: #86efac;
+		background: #f0fdf4;
+	}
+
+	.result-question.wrong {
+		border-color: #fca5a5;
+		background: #fef2f2;
+	}
+
+	.result-question h3 {
+		margin-bottom: 10px;
+	}
+
+.question-text {
+	font-weight: bold;
+	line-height: 1.5;
+	margin-bottom: 15px;
+}
+
+.result-question p {
+	margin-top: 8px;
+	line-height: 1.5;
+}
+
+/* =========================================
+   TRẠNG THÁI ĐÚNG / SAI
+========================================= */
+
+.status {
+	margin-top: 12px;
+	font-weight: bold;
+}
+
+.correct-text {
+	color: #16a34a;
+}
+
+.wrong-text {
+	color: #dc2626;
+}
+
+/* =========================================
+   NÚT QUAY LẠI
+========================================= */
+
+.back-button {
+	display: block;
+	text-align: center;
+	margin-top: 25px;
+	padding: 15px;
+	background: #2563eb;
+	color: white;
+	text-decoration: none;
+	border-radius: 10px;
+	font-weight: bold;
+	transition: 0.2s;
+}
+
+	.back-button:hover {
+		background: #1d4ed8;
+		transform: translateY(-1px);
+	}
+
+/* =========================================
+   THÔNG BÁO CÂU CHƯA TRẢ LỜI
+========================================= */
+
+.question-error {
+	display: none;
+	margin-top: 12px;
+	color: #dc2626;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.question-card.unanswered {
+	border: 2px solid #ef4444;
+	animation: shake 0.3s;
+}
+
+/* =========================================
+   HIỆU ỨNG RUNG
+========================================= */
+
+@keyframes shake {
+
+	0% {
+		transform: translateX(0);
+	}
+
+	25% {
+		transform: translateX(-5px);
+	}
+
+	50% {
+		transform: translateX(5px);
+	}
+
+	75% {
+		transform: translateX(-5px);
+	}
+
+	100% {
+		transform: translateX(0);
+	}
+}
+
+/* =========================================
+   MODAL XÁC NHẬN NỘP BÀI
+========================================= */
+
+.confirm-modal {
+	position: fixed;
+	inset: 0;
+	background: rgba(15, 23, 42, 0.55);
+	display: none;
+	align-items: center;
+	justify-content: center;
+	z-index: 9999;
+	padding: 20px;
+}
+
+	.confirm-modal.show {
+		display: flex;
+	}
+
+/* Hộp */
+
+.confirm-box {
+	width: 420px;
+	max-width: 100%;
+	background: white;
+	border-radius: 18px;
+	padding: 30px;
+	text-align: center;
+	box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+	animation: modalShow 0.2s ease;
+}
+
+.confirm-icon {
+	font-size: 42px;
+	margin-bottom: 10px;
+}
+
+.confirm-box h2 {
+	margin-bottom: 12px;
+	color: #1e293b;
+}
+
+.confirm-box p {
+	color: #64748b;
+	margin: 6px 0;
+	line-height: 1.5;
+}
+
+/* Nút */
+
+.confirm-buttons {
+	display: flex;
+	justify-content: center;
+	gap: 12px;
+	margin-top: 25px;
+}
+
+.cancel-btn,
+.confirm-btn {
+	border: none;
+	padding: 12px 25px;
+	border-radius: 9px;
+	font-size: 15px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: 0.2s;
+}
+
+.cancel-btn {
+	background: #e2e8f0;
+	color: #334155;
+}
+
+	.cancel-btn:hover {
+		background: #cbd5e1;
+	}
+
+.confirm-btn {
+	background: #2563eb;
+	color: white;
+}
+
+	.confirm-btn:hover {
+		background: #1d4ed8;
+	}
+
+/* =========================================
+   ANIMATION MODAL
+========================================= */
+
+@keyframes modalShow {
+
+	from {
+		opacity: 0;
+		transform: scale(0.9);
+	}
+
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+	.quiz-container,
+	.result-container {
+		width: 95%;
+		margin-top: 20px;
+	}
+
+	.quiz-header {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 15px;
+	}
+
+	.question-card {
+		padding: 20px;
+	}
+
+		.question-card h2 {
+			font-size: 17px;
+		}
+
+	.answer {
+		padding: 13px;
+	}
+
+	.statistics {
+		grid-template-columns: 1fr;
+	}
+
+	.score {
+		font-size: 45px;
+	}
+
+	body:has(.container > .card form[action="/create-quiz"]) .container {
+		width: 95%;
+		margin: 30px auto;
+	}
+
+	body:has(.container > .card form[action="/create-quiz"]) .card {
+		padding: 25px 20px;
+	}
+
+	body:has(.container > .card form[action="/create-quiz"]) h1 {
+		font-size: 32px;
+	}
+
+	.result-highlight {
+		grid-template-columns: 1fr;
+	}
+
+	.confirm-box {
+		padding: 25px 20px;
+	}
+
+	.confirm-buttons {
+		flex-direction: column;
+	}
+
+	.cancel-btn,
+	.confirm-btn {
+		width: 100%;
+	}
+}
+/* =========================================
+   NÚT TRANG KẾT QUẢ
+========================================= */
+
+.result-actions {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 14px;
+	margin-top: 30px;
+}
+
+	.ai-review-btn,
+	.result-actions .back-button {
+		width: 180px;
+		height: 48px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0;
+		border-radius: 10px;
+		font-size: 15px;
+		font-weight: 600;
+		text-decoration: none;
+	}
+
+.ai-review-btn {
+	border: none;
+	background: #2563eb;
+	color: white;
+	cursor: pointer;
+	transition: 0.2s;
+}
+
+	.ai-review-btn:hover {
+		background: #1d4ed8;
+		transform: translateY(-1px);
+	}
+
+.result-actions .back-button {
+	margin: 0;
+}
+
+/* =========================================
+   TRANG AI REVIEW
+========================================= */
+
+.ai-review-page {
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	padding: 50px 20px;
+	background: #f1f5f9;
+}
+
+.ai-review-card {
+	width: 100%;
+	max-width: 900px;
+	background: white;
+	border-radius: 18px;
+	padding: 30px;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* =========================================
+   HEADER AI REVIEW
+========================================= */
+
+.ai-review-header {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 15px;
+}
+
+.ai-review-title {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+}
+
+	.ai-review-title .ai-icon {
+		width: 50px;
+		height: 50px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: #eff6ff;
+		border-radius: 12px;
+		font-size: 25px;
+		flex-shrink: 0;
+	}
+
+	.ai-review-title h1 {
+		margin: 0 0 5px;
+		font-size: 23px;
+		color: #1e293b;
+	}
+
+	.ai-review-title p {
+		margin: 0;
+		font-size: 14px;
+		color: #64748b;
+	}
+
+/* =========================================
+   THÔNG TIN BÊN PHẢI
+========================================= */
+
+.ai-review-info {
+	width: 100%;
+	min-width: 0;
+	margin: 0;
+	padding: 0;
+	background: transparent;
+}
+
+.info-row {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 15px;
+	padding: 5px 0;
+	font-size: 14px;
+}
+
+	.info-row span {
+		color: #64748b;
+	}
+
+	.info-row strong {
+		color: #1e293b;
+		text-align: left;
+	}
+
+/* =========================================
+   NỘI DUNG NHẬN XÉT AI
+========================================= */
+
+.ai-review-content {
+	margin-top: 25px;
+	padding: 25px;
+	background: #f8fafc;
+	border: 1px solid #e2e8f0;
+	border-radius: 12px;
+	color: #334155;
+	font-size: 15px;
+	line-height: 1.8;
+	white-space: pre-line;
+}
+
+/* =========================================
+   FOOTER AI REVIEW
+========================================= */
+
+.ai-review-footer {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 25px;
+}
+
+	.ai-review-footer .back-button {
+		margin: 0;
+	}
+
+/* =========================================
+   MOBILE - AI REVIEW + NÚT KẾT QUẢ
+========================================= */
+
+@media (max-width: 600px) {
+
+	.result-actions {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+		.ai-review-btn,
+		.result-actions .back-button {
+			width: 100%;
+		}
+
+	.ai-review-page {
+		padding: 25px 15px;
+	}
+
+	.ai-review-card {
+		padding: 20px;
+	}
+
+	.ai-review-header {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 20px;
+	}
+
+	.ai-review-title h1 {
+		font-size: 20px;
+	}
+
+	.ai-review-info {
+		width: 100%;
+		min-width: 0;
+	}
+
+	.ai-review-content {
+		padding: 20px;
+		font-size: 14px;
+	}
+
+	.ai-review-footer {
+		justify-content: stretch;
+	}
+
+		.ai-review-footer .back-button {
+			width: 100%;
+		}
+}
+/* =========================================
+   KNOWLEDGE TRACKING
+   ========================================= */
+
+.knowledge-page {
+	min-height: 100vh;
+	padding: 50px 20px;
+	background: #f1f5f9;
+}
+
+.knowledge-container {
+	width: 900px;
+	max-width: 95%;
+	margin: 0 auto;
+}
+
+.knowledge-header {
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+	.knowledge-header h1 {
+		font-size: 32px;
+		color: #2563eb;
+		margin-bottom: 8px;
+	}
+
+	.knowledge-header p {
+		color: #64748b;
+		font-size: 15px;
+	}
+
+.knowledge-list {
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+}
+
+.knowledge-card {
+	background: white;
+	padding: 24px;
+	border-radius: 16px;
+	box-shadow: 0 4px 15px rgba(15, 23, 42, 0.08);
+}
+
+.knowledge-card-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 15px;
+	margin-bottom: 15px;
+}
+
+	.knowledge-card-header h2 {
+		font-size: 19px;
+		color: #1e293b;
+	}
+
+	.knowledge-card-header span {
+		font-size: 18px;
+		font-weight: bold;
+		color: #2563eb;
+	}
+
+.knowledge-progress {
+	width: 100%;
+	height: 10px;
+	background: #e2e8f0;
+	border-radius: 20px;
+	overflow: hidden;
+}
+
+.knowledge-progress-bar {
+	height: 100%;
+	background: #2563eb;
+	border-radius: 20px;
+	transition: width 0.4s ease;
+}
+
+.knowledge-stat {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 14px;
+	font-size: 14px;
+	color: #64748b;
+}
+
+.knowledge-good {
+	color: #16a34a;
+}
+
+.knowledge-medium {
+	color: #d97706;
+}
+
+.knowledge-weak {
+	color: #dc2626;
+}
+
+.knowledge-empty {
+	background: white;
+	padding: 50px 30px;
+	border-radius: 16px;
+	text-align: center;
+}
+
+	.knowledge-empty h2 {
+		margin-bottom: 10px;
+	}
+
+	.knowledge-empty p {
+		color: #64748b;
+	}
+
+.knowledge-footer {
+	display: flex;
+	justify-content: center;
+	margin-top: 30px;
+}
